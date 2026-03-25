@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    @apply text-charcoal bg-white;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 cursor-pointer;
+  }
+  .btn-primary {
+    @apply btn bg-blue text-white hover:bg-accent shadow-lg shadow-blue/25 hover:shadow-blue/40 hover:-translate-y-0.5;
+  }
+  .btn-outline {
+    @apply btn border border-white/30 text-white bg-white/10 backdrop-blur hover:bg-white/20 hover:-translate-y-0.5;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-navy hover:bg-yellow-400 shadow-lg shadow-gold/30 hover:-translate-y-0.5;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-blue hover:bg-blue/10;
+  }
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700;
+  }
+  .btn-sm { @apply px-4 py-2 text-sm; }
+  .btn-md { @apply px-6 py-3 text-sm; }
+  .btn-lg { @apply px-8 py-4 text-base; }
+
+  .card-base {
+    @apply bg-white rounded-2xl border border-blue/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-250;
+  }
+
+  .section-label {
+    @apply text-xs font-semibold uppercase tracking-widest text-blue mb-2;
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-navy leading-tight tracking-tight;
+  }
+  .section-sub {
+    @apply text-lg text-navy/60 font-light max-w-xl;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 rounded-xl border border-blue/20 bg-white text-navy placeholder:text-navy/40
+           focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/10 transition-all;
+  }
+  .form-label {
+    @apply block text-sm font-semibold text-navy mb-1.5;
+  }
+}
+
+/* Parallax hero */
+.hero-parallax {
+  will-change: transform;
+}
+
+/* Tiptap editor */
+.tiptap-content h1 { @apply text-2xl font-bold mb-3; }
+.tiptap-content h2 { @apply text-xl font-bold mb-2; }
+.tiptap-content p  { @apply mb-3 leading-relaxed; }
+.tiptap-content ul { @apply list-disc pl-5 mb-3; }
+.tiptap-content ol { @apply list-decimal pl-5 mb-3; }
+.tiptap-content a  { @apply text-blue underline; }
