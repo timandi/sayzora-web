@@ -17,7 +17,7 @@ export interface Apartment {
   updated_at: string;
 }
 
-export interface ApartmentParsed extends Omit<Apartment, 'amenities' | 'photos'> {
+export interface ApartmentParsed extends Omit<Apartment, "amenities" | "photos"> {
   amenities: string[];
   photos: string[];
 }

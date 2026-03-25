@@ -1,15 +1,15 @@
-'use client';
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<'idle'|'loading'|'ok'|'error'>('idle');
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus('loading');
+    setStatus("loading");
     const data = Object.fromEntries(new FormData(e.currentTarget));
-    const res = await fetch('/api/contact', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
-    setStatus(res.ok ? 'ok' : 'error');
+    const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+    setStatus(res.ok ? "ok" : "error");
     if (res.ok) (e.target as HTMLFormElement).reset();
   }
 
@@ -43,11 +43,10 @@ export default function ContactForm() {
         <label className="form-label">Message</label>
         <textarea name="message" rows={4} className="form-input resize-none" placeholder="Tell us how we can help…" required />
       </div>
-      <button type="submit" disabled={status==='loading'}
-        className={`btn btn-primary btn-md w-full ${status==='loading'?'opacity-70 cursor-wait':''}`}>
-        {status==='loading' ? 'Sending…' : status==='ok' ? '✓ Message Sent!' : 'Send Message'}
+      <button type="submit" disabled={status === "loading"} className={`btn btn-primary btn-md w-full ${status === "loading" ? "opacity-70 cursor-wait" : ""}`}>
+        {status === "loading" ? "Sending…" : status === "ok" ? "✓ Message Sent!" : "Send Message"}
       </button>
-      {status==='error' && <p className="text-red-500 text-sm text-center">Something went wrong. Please try again.</p>}
+      {status === "error" && <p className="text-red-500 text-sm text-center">Something went wrong. Please try again.</p>}
     </form>
   );
 }

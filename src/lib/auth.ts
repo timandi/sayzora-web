@@ -1,18 +1,12 @@
-import { SignJWT, jwtVerify } from 'jose';
-import { cookies } from 'next/headers';
-import { NextRequest } from 'next/server';
+import { SignJWT, jwtVerify } from "jose";
+import { cookies } from "next/headers";
+import { NextRequest } from "next/server";
 
-const SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'fallback-dev-secret-change-in-production'
-);
-const COOKIE_NAME = 'sayzora_admin_token';
+const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "fallback-dev-secret-change-in-production");
+const COOKIE_NAME = "sayzora_admin_token";
 
 export async function signToken(payload: Record<string, unknown>) {
-  return new SignJWT(payload)
-    .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt()
-    .setExpirationTime('8h')
-    .sign(SECRET);
+  return new SignJWT(payload).setProtectedHeader({ alg: "HS256" }).setIssuedAt().setExpirationTime("8h").sign(SECRET);
 }
 
 export async function verifyToken(token: string) {
