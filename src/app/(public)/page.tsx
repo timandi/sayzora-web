@@ -54,7 +54,7 @@ export default function HomePage() {
             priority
           />
           <div className="absolute inset-0 bg-hero-gradient" />
-          <div className="absolute inset-0 bg-radial-[ellipse_at_60%_40%] from-accent/20 to-transparent" />
+          <div className="absolute inset-0" style={{background: 'radial-gradient(ellipse at 60% 40%, rgba(51,116,183,0.18) 0%, transparent 70%)'}} />
         </div>
 
         {/* Badge */}

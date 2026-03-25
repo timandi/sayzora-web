@@ -36,7 +36,7 @@
   .btn-lg { @apply px-8 py-4 text-base; }
 
   .card-base {
-    @apply bg-white rounded-2xl border border-blue/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-250;
+    @apply bg-white rounded-2xl border border-blue/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200;
   }
 
   .section-label {

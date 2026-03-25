@@ -63,7 +63,7 @@ export default function CollaboratePage() {
             <h2 className="section-title mb-4">Local Expertise, Premium Results</h2>
             <ul className="space-y-3 text-navy/70">
               {[
-                'Deep local knowledge of Tenerife's rental market',
+                "Deep local knowledge of Tenerife's rental market",
                 'Established presence on Airbnb, Booking.com & HolidayFuture',
                 'Dedicated guest support team available 7 days a week',
                 'Transparent reporting and monthly owner payouts',

@@ -65,7 +65,7 @@ export default function InvestPage() {
             {[
               { icon: '☀️', title: 'Year-Round Tourism', desc: 'Unlike seasonal European destinations, Tenerife draws visitors every month of the year.' },
               { icon: '📈', title: 'Strong ROI', desc: 'Short-term rentals in Las Americas can yield 8–12% gross annually, outperforming long-term lets.' },
-              { icon: '🏗️', title: 'Stable Market', desc: 'Spain's stable legal framework and Canary Islands tax advantages make property ownership straightforward.' },
+              { icon: '🏗️', title: 'Stable Market', desc: "Spain's stable legal framework and Canary Islands tax advantages make property ownership straightforward." },
             ].map(c => (
               <div key={c.title} className="bg-white rounded-2xl p-7 border border-blue/10 shadow-sm">
                 <span className="text-3xl">{c.icon}</span>
