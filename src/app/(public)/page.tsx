@@ -26,7 +26,7 @@ function getSettings(): Record<string, string> {
 
 export default function HomePage() {
   // Server-side data fetch
-  let apartments = [];
+  let apartments: ReturnType<typeof parseApartment>[] = [];
   try {
     const db = getDb();
     const raw = db.prepare('SELECT * FROM apartments WHERE active=1 ORDER BY sort_order,id').all() as Apartment[];

@@ -8,7 +8,7 @@ const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || 'https://126222_1.hol
 export const metadata = { title: 'Apartments – Sayzora Hospitality' };
 
 export default function ApartmentsPage() {
-  let apartments = [];
+  let apartments: ReturnType<typeof parseApartment>[] = [];
   try {
     const db = getDb();
     const raw = db.prepare('SELECT * FROM apartments WHERE active=1 ORDER BY sort_order,id').all() as Apartment[];
