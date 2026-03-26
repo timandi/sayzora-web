@@ -1,21 +1,12 @@
-import { getDb } from "@/lib/db";
+import { getPageContent } from "@/lib/store";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata = { title: "Collaborate – Sayzora Hospitality" };
 
-function getContent(key: string, fallback = "") {
-  try {
-    const db = getDb();
-    const row = db.prepare("SELECT value FROM page_content WHERE page=? AND key=?").get("collaborate", key) as { value: string } | undefined;
-    return row?.value ?? fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-export default function CollaboratePage() {
-  const headline = getContent("headline", "Partner With Sayzora");
-  const body = getContent("body", "");
+export default async function CollaboratePage() {
+  const content = await getPageContent("collaborate");
+  const headline = content.headline || "Partner With Sayzora";
+  const body = content.body || "";
 
   const offerings = [
     { icon: "🏢", title: "Full Property Management", desc: "We handle everything: listings, guests, cleaning, maintenance. You collect your returns." },
@@ -26,19 +17,15 @@ export default function CollaboratePage() {
 
   return (
     <>
-      {/* Hero */}
       <div className="bg-gradient-to-b from-navy to-ocean pt-32 pb-20 text-center px-4">
         <div className="section-label text-blue/60">Work Together</div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">{headline}</h1>
-        {body && <div className="text-white/65 text-lg max-w-2xl mx-auto tiptap-content" dangerouslySetInnerHTML={{ __html: body }} />}
-        {!body && (
-          <p className="text-white/65 text-lg max-w-2xl mx-auto">
-            We offer a range of partnership models — from full property management to flexible co-hosting. Let's grow together in Tenerife's thriving rental market.
-          </p>
-        )}
+        {body
+          ? <div className="text-white/65 text-lg max-w-2xl mx-auto tiptap-content" dangerouslySetInnerHTML={{ __html: body }} />
+          : <p className="text-white/65 text-lg max-w-2xl mx-auto">We offer a range of partnership models — from full property management to flexible co-hosting. Let's grow together.</p>
+        }
       </div>
 
-      {/* Offerings */}
       <section className="py-20 bg-cream px-6">
         <div className="max-w-5xl mx-auto">
           <div className="section-label">What We Offer</div>
@@ -55,23 +42,14 @@ export default function CollaboratePage() {
         </div>
       </section>
 
-      {/* Why Sayzora */}
       <section className="py-20 bg-white px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <div className="section-label">Why Choose Us</div>
             <h2 className="section-title mb-4">Local Expertise, Premium Results</h2>
             <ul className="space-y-3 text-navy/70">
-              {[
-                "Deep local knowledge of Tenerife's rental market",
-                "Established presence on Airbnb, Booking.com & HolidayFuture",
-                "Dedicated guest support team available 7 days a week",
-                "Transparent reporting and monthly owner payouts",
-                "Proven track record of 4.9★ guest satisfaction",
-              ].map((i) => (
-                <li key={i} className="flex items-start gap-2 text-sm">
-                  <span className="text-gold mt-0.5">✓</span> {i}
-                </li>
+              {["Deep local knowledge of Tenerife's rental market","Established presence on Airbnb, Booking.com & HolidayFuture","Dedicated guest support team available 7 days a week","Transparent reporting and monthly owner payouts","Proven track record of 4.9★ guest satisfaction"].map((i) => (
+                <li key={i} className="flex items-start gap-2 text-sm"><span className="text-gold mt-0.5">✓</span> {i}</li>
               ))}
             </ul>
           </div>
@@ -82,7 +60,6 @@ export default function CollaboratePage() {
         </div>
       </section>
 
-      {/* Contact form */}
       <section className="py-20 bg-cream px-6">
         <div className="max-w-2xl mx-auto">
           <div className="section-label">Get In Touch</div>

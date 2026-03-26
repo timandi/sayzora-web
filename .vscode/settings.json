@@ -1,0 +1,20 @@
+{
+  "VsCodeTaskButtons.tasks": [
+    {
+      "label": "$(alert) Build Dev",
+      "task": "npm: dev",
+      // "color": "error"
+    },
+    {
+      "label": "$(warning) NPM Install",
+      "task": "npm: install",
+      // "color": "warning"
+    },
+    {
+      "label": "$(trash) Clean",
+      "task": "npm: clean",
+      // "color": "error"
+    }
+  ],
+  "VsCodeTaskButtons.showCounter": false
+}
