@@ -2,32 +2,7 @@
 
 import Image from "next/image";
 import { useState, useCallback } from "react";
-
-export interface ListingPhoto {
-  id: number;
-  url: string;
-  caption: string;
-  sortOrder: number;
-}
-
-export interface ListingData {
-  listingId: number;
-  listingName: string;
-  externalName: string;
-  description: string;
-  airbnbSummary?: string;
-  personCapacity: number;
-  bedroomsNumber: number;
-  bedsNumber: number;
-  bathroomsNumber: number;
-  roomType: string;
-  location: { city: string; state?: string; countryCode?: string; address?: string };
-  amenities: { id: number; name: string; category: string; description: string | null }[];
-  photos: ListingPhoto[];
-  holidayfutureUrl?: string;
-  airbnbUrl?: string;
-  bookingUrl?: string;
-}
+import type { ListingData } from "@/types";
 
 const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "https://126222_1.holidayfuture.com/";
 const HIGHLIGHT = ["Swimming pool","Air conditioning","WiFi","Parking","Beach essentials","TV","Washing machine","Sea view","Ocean view","Balcony"];
@@ -135,9 +110,9 @@ export default function ApartmentCard({ listing }: { listing: ListingData }) {
         <h3 className="font-bold text-navy text-lg leading-tight mb-1">{listing.externalName}</h3>
         <p className="text-sm text-navy/55 mb-3 line-clamp-2">{listing.airbnbSummary || listing.description}</p>
         <div className="flex gap-4 text-sm text-navy/60 mb-3">
-          <span>🛏 {listing.bedroomsNumber} BR</span>
-          <span>🚿 {listing.bathroomsNumber} BA</span>
-          <span>👥 {listing.personCapacity}</span>
+          <span>🛏 {listing.bedroomsNumber} {listing.bedroomsNumber === 1 ? "Bedroom" : "Bedrooms"}</span>
+          <span>🚿 {listing.bathroomsNumber} {listing.bathroomsNumber === 1 ? "Bathroom" : "Bathrooms"}</span>
+          <span>👥 {listing.personCapacity} {listing.personCapacity === 1 ? "Guest" : "Guests"}</span>
         </div>
         {highlightAmenities.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-4">

@@ -13,11 +13,11 @@ const nextConfig = {
       },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: '*.holidayfuture.com' },
+      // Vercel Blob storage
+      { protocol: 'https', hostname: '*.public.blob.vercel-storage.com' },
     ],
   },
-  // Required for better-sqlite3 native module in Next.js 15
-  serverExternalPackages: ['better-sqlite3'],
-  // Allow serving uploaded images from /public/uploads
+  // Allow serving uploaded images from /public/uploads (dev fallback)
   async headers() {
     return [
       {

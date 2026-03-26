@@ -1,14 +1,13 @@
 import Image from "next/image";
-import listingsData from "@/lib/listings_data.json";
-import type { ListingData } from "@/components/ApartmentCard";
+import type { ListingData } from "@/types";
 import ApartmentCard from "@/components/ApartmentCard";
 import ContactForm from "@/components/ContactForm";
-import { getSettings, getPageContent } from "@/lib/store";
+import { getSettings, getPageContent, getListings } from "@/lib/store";
 
 const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "https://126222_1.holidayfuture.com/";
 
 export default async function HomePage() {
-  const listings = (listingsData as ListingData[]).slice(0, 6);
+  const listings = (await getListings() as ListingData[]).slice(0, 6);
   const [settings, aboutContent] = await Promise.all([getSettings(), getPageContent("about")]);
 
   const headline    = aboutContent.headline    || "Your Home Away from Home in Paradise";
@@ -113,7 +112,7 @@ export default async function HomePage() {
           </div>
           <div className="text-center mt-12">
             <a href="/apartments" className="btn btn-primary btn-lg">
-              See All {(listingsData as ListingData[]).length} Apartments →
+              See All {listings.length} Apartments →
             </a>
           </div>
         </div>

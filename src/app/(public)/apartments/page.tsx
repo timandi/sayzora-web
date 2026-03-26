@@ -1,13 +1,15 @@
-import listingsData from "@/lib/listings_data.json";
-import type { ListingData } from "@/components/ApartmentCard";
+// import listingsData from "@/lib/listings_data.json";
+
+import type { ListingData } from "@/types";
 import ApartmentCard from "@/components/ApartmentCard";
+import { getListings } from "@/lib/store";
 
 const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "https://126222_1.holidayfuture.com/";
 
 export const metadata = { title: "Apartments – Sayzora Hospitality" };
 
-export default function ApartmentsPage() {
-  const listings = listingsData as ListingData[];
+export default async function ApartmentsPage() {
+  const listings = await getListings() as ListingData[];
   const cities = [...new Set(listings.map((l) => l.location.city))];
 
   return (

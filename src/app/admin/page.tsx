@@ -1,6 +1,7 @@
 import AdminShell from "@/components/AdminShell";
 import Link from "next/link";
-import listingsData from "@/lib/listings_data.json";
+import { getListings } from "@/lib/store";
+const listingsData = await getListings();
 
 export default function AdminDashboard() {
   return (
@@ -11,7 +12,7 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
           {[
-            { label: "Total Listings", value: listingsData.length, href: "/apartments", icon: "🏠" },
+            { label: "Total Listings", value: listingsData.length, href: "/admin/apartments", icon: "🏠" },
             { label: "View Public Site", value: "→", href: "/", icon: "🌐" },
             { label: "Booking Engine", value: "→", href: process.env.NEXT_PUBLIC_BOOKING_URL || "https://126222_1.holidayfuture.com/", icon: "📅" },
           ].map((s) => (
@@ -26,6 +27,7 @@ export default function AdminDashboard() {
 
         <div className="grid md:grid-cols-2 gap-4">
           {[
+            { title: "Manage Apartments", desc: "Edit listing details, descriptions, photos, and booking URLs.", href: "/admin/apartments", icon: "🏠" },
             { title: "Edit Page Content", desc: "Update About Us, Collaborate, and Invest page text.", href: "/admin/content", icon: "📝" },
             { title: "Site Settings", desc: "Update contact email and social media links.", href: "/admin/settings", icon: "⚙️" },
           ].map((c) => (

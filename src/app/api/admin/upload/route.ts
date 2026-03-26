@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionFromRequest } from "@/lib/auth";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
-import { v4 as uuidv4 } from "uuid";
 
 export async function POST(req: NextRequest) {
   const session = await getSessionFromRequest(req);
@@ -18,15 +15,31 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid file type" }, { status: 400 });
     }
 
-    const ext = file.name.split(".").pop() || "jpg";
-    const filename = `${uuidv4()}.${ext}`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
+    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+    const { randomUUID } = await import("crypto");
+    const filename = `sayzora/uploads/${randomUUID()}.${ext}`;
 
-    await mkdir(uploadDir, { recursive: true });
-    const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(path.join(uploadDir, filename), buffer);
-
-    return NextResponse.json({ url: `/uploads/${filename}` });
+    if (process.env.PUBLIC_BLOB_READ_WRITE_TOKEN) {
+      const { put } = await import("@vercel/blob");
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const blob = await put(filename, buffer, {
+        access: "public",
+        allowOverwrite: true,
+        token: process.env.PUBLIC_BLOB_READ_WRITE_TOKEN,
+        contentType: file.type,
+      });
+      return NextResponse.json({ url: blob.url });
+    } else {
+      // Dev fallback: save to /public/uploads/
+      const { writeFile, mkdir } = await import("fs/promises");
+      const path = await import("path");
+      const localFilename = `${randomUUID()}.${ext}`;
+      const uploadDir = path.join(process.cwd(), "public", "uploads");
+      await mkdir(uploadDir, { recursive: true });
+      const buffer = Buffer.from(await file.arrayBuffer());
+      await writeFile(path.join(uploadDir, localFilename), buffer);
+      return NextResponse.json({ url: `/uploads/${localFilename}` });
+    }
   } catch (e) {
     console.error(e);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
