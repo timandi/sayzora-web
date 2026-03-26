@@ -18,7 +18,7 @@ export default function Navbar() {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-navy/95 backdrop-blur-md shadow-2xl" : "bg-transparent"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         {/* Logo */}
-        <Link href="/" className="text-white font-bold text-2xl tracking-tight">
+        <Link href="/" className="text-gold font-bold text-3xl tracking-tight">
           Sayzora<span className="text-gold">.</span>
         </Link>
 
@@ -31,13 +31,13 @@ export default function Navbar() {
             ["/invest", "Invest"],
           ].map(([href, label]) => (
             <li key={href}>
-              <Link href={href} className="text-white/70 hover:text-white text-sm font-medium transition-colors">
+              <Link href={href} className="text-gold hover:text-gold text-m font-bold transition-colors">
                 {label}
               </Link>
             </li>
           ))}
           <li>
-            <Link href="/#contact" className="text-white/70 hover:text-white text-sm font-medium transition-colors">
+            <Link href="/#contact" className="text-gold hover:text-gold text-m font-bold transition-colors">
               Contact
             </Link>
           </li>
@@ -49,7 +49,7 @@ export default function Navbar() {
         </ul>
 
         {/* Mobile hamburger */}
-        <button className="md:hidden text-white p-2 rounded-lg hover:bg-white/10" onClick={() => setOpen((o) => !o)} aria-label="Toggle menu">
+        <button className="md:hidden text-gold p-2 rounded-lg hover:bg-white/10" onClick={() => setOpen((o) => !o)} aria-label="Toggle menu">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {open ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
           </svg>
@@ -66,7 +66,7 @@ export default function Navbar() {
             ["/invest", "Invest"],
             ["/#contact", "Contact"],
           ].map(([href, label]) => (
-            <Link key={href} href={href} onClick={() => setOpen(false)} className="block text-white/80 hover:text-white py-2 text-sm font-medium">
+            <Link key={href} href={href} onClick={() => setOpen(false)} className="block text-gold/80 hover:text-gold py-2 text-m font-bold">
               {label}
             </Link>
           ))}
