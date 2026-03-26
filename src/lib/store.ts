@@ -13,12 +13,15 @@
 
 import settingsFallback from "@/lib/data/settings.json";
 import contentFallback from "@/lib/data/content.json";
-import listings_data from "lib/listings_data.json"; // For reference, not used in code
+import listings_data from "@/lib/listings_data.json"; // For reference, not used in code
 import { NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
 import { put } from "@vercel/blob";
 
-const { url } = await put('articles/blob.txt', 'Hello World!', { access: 'private' });
+// verify blob storage for duplucate content (e.g. articles) with same filename
+
+const { url } = await put("articles/blob.txt", "Hello World!", { access: "private", allowOverwrite: true });
+
 // ── types ─────────────────────────────────────────────────────────────────────
 
 export type Settings = Record<string, string>;
